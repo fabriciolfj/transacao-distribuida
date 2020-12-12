@@ -42,3 +42,4 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 
 app.topic: transacao-topic
+app.topic.create: transacao-crate

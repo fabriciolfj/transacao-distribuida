@@ -30,6 +30,10 @@ public class TransacaoService {
         transacaoRepository.save(entity);
     }
 
+    public void criarTransacao(final TransacaoDistribuida transacaoDistribuida) {
+        cache.addTransacao(transacaoDistribuida);
+    }
+
     public TransacaoDistribuida criarTransacao() {
         var transacao = TransacaoDistribuida
                 .builder()
