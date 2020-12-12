@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: conta-service
+  cache:
+   type: redis
+  redis:
+    host: localhost
+    port: 6379
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: admin
+    password: admin
+    hikari:
+      connection-timeout: 2000
+      initialization-fail-timeout: 0
+  flyway:
+    locations:
+      - classpath:db/migration
+      - classpath:db/testdata
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  kafka:
+    bootstrap-servers:
+     - localhost:9092
+  cloud:
+    stream:
+      binders:
+        kafka:
+          type: kafka
+      bindings:
+        output-tansaction:
+          destination: transacao-topic
+          group: '${spring.application.name}'
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
