@@ -1,25 +1,29 @@
 package com.github.fabriciolfj.contaservice.api.controller;
 
+import com.github.fabriciolfj.contaservice.api.dto.request.TransacaoRequest;
+import com.github.fabriciolfj.contaservice.api.mappers.TransacaoModelMapper;
 import com.github.fabriciolfj.contaservice.domain.entity.Conta;
 import com.github.fabriciolfj.contaservice.domain.service.ContaService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
+import javax.validation.Valid;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/contas")
 public class ContaController {
 
-    private final ContaService contaService;
+    @Autowired
+    private ContaService contaService;
+    @Autowired
+    private TransacaoModelMapper mapper;
 
-    @PutMapping("/{customerId}/debitar/{valor}")
+    @PutMapping("/debitar")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Conta debitarValor(@PathVariable("customerId") final String customerId, @PathVariable("valor") final BigDecimal valor,
+    public Conta debitarValor(@Valid @RequestBody TransacaoRequest request,
                               @RequestHeader("x-transaction-id") final String transactionId) {
-        return contaService.transferir(transactionId, customerId, valor);
+        return contaService.transferir(mapper.toModel(request, transactionId));
     }
 
 }

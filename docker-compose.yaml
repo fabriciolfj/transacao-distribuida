@@ -12,7 +12,6 @@ services:
       - 3306:3306
 
   postgres_marketplace:
-    container_name: postgres
     image: postgres:12.2
     environment:
       POSTGRES_USER: admin
@@ -44,7 +43,6 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
   kafdrop:
-    container_name: kafdrop_container
     image: obsidiandynamics/kafdrop:3.24.0
     environment:
       KAFKA_BROKERCONNECT: kafka:9092

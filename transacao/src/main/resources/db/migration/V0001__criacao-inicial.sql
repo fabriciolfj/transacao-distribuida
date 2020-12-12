@@ -1,6 +1,6 @@
 create table transacao(
  id bigint not null auto_increment,
- status varchar(10),
+ status varchar(50),
  transaction_id varchar(100),
  create_transacao date,
  update_transacao date,

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fabriciolfj.contaservice.api.exceptions.ProcessarTransacaoException;
 import com.github.fabriciolfj.contaservice.domain.event.ContaTransacaoEvent;
 import com.github.fabriciolfj.contaservice.domain.integracao.TransacaoBinder;
+import com.github.fabriciolfj.contaservice.domain.model.TransacaoDistribuida;
 import com.github.fabriciolfj.contaservice.domain.model.TransacaoMessage;
 import com.github.fabriciolfj.contaservice.domain.model.TransacaoStatus;
 import com.github.fabriciolfj.contaservice.domain.redisrepository.TransacaoDistribuidaRepository;
@@ -24,8 +25,10 @@ public class ContaTransacaoEventListener {
 
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void handleEvent(final ContaTransacaoEvent event) {
-        transacaoDistribuidaRepository.get(event.getTransactionId())
+        final var transacao = transacaoDistribuidaRepository.get(event.getTransactionId())
                 .orElseThrow(() -> new ProcessarTransacaoException("Transacao nao encontrada"));
+
+        log.info("Transacao localizada: {}", transacao);
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_ROLLBACK)
@@ -33,7 +36,7 @@ public class ContaTransacaoEventListener {
         send(TransacaoStatus.TO_ROLLBACK.toString(), event.getTransactionId());
     }
 
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMPLETION)
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleDepoisFinalizado(final ContaTransacaoEvent event) {
         send(TransacaoStatus.CONFIRMED.toString(), event.getTransactionId());
     }

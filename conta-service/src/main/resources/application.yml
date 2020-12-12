@@ -38,6 +38,7 @@ spring:
           destination: transacao-topic
           group: '${spring.application.name}'
 
+
 eureka:
   instance:
     preferIpAddress: true

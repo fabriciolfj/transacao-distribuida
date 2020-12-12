@@ -1,5 +1,6 @@
-package com.github.fabriciolfj.contaservice.domain.entity;
+ package com.github.fabriciolfj.contaservice.domain.entity;
 
+import com.github.fabriciolfj.contaservice.api.exceptions.SaldoNegativoException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,6 +22,10 @@ public class Conta {
     private BigDecimal reserva;
 
     public void debit(final BigDecimal valor) {
-        this.reserva.subtract(valor);
+        this.reserva = this.reserva.subtract(valor);
+
+        if (this.reserva.compareTo(BigDecimal.ZERO) < 0 ) {
+            throw new SaldoNegativoException("Saldo insuficiente. Valor: " + this.reserva);
+        }
     }
 }
