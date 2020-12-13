@@ -1,6 +1,16 @@
 
 version: "3.8"
 services:
+  mysql2:
+    image: mysql:5.7.21
+    command: --lower_case_table_names=1
+    environment:
+      MYSQL_DATABASE: "pedido"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+    ports:
+      - 3307:3306
+
   mysql:
     image: mysql:5.7.21
     command: --lower_case_table_names=1

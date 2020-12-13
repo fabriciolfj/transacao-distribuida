@@ -9,16 +9,17 @@ spring:
     host: localhost
     port: 6379
   datasource:
-    url: jdbc:mysql://localhost:3306/transacao
+    url: jdbc:mysql://localhost:3306/transacao?createDatabaseIfNotExist=true&serverTimezone=UTC
     username: root
     password: root
     hikari:
       connection-timeout: 2000
       initialization-fail-timeout: 0
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.MySQL57Dialect
     hibernate:
       ddl-auto: none
+      dialect: org.hibernate.dialect.MySQL57Dialect
     show-sql: true
     properties:
       hibernate:

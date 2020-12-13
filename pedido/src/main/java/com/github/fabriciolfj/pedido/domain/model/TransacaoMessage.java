@@ -1,4 +1,4 @@
-package com.github.fabriciolfj.transacao.domain.model;
+package com.github.fabriciolfj.pedido.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class TransacaoMessage {
 
     private String transactionId;
-    private String customerId;
+    private String serviceName;
     private String status;
 }
