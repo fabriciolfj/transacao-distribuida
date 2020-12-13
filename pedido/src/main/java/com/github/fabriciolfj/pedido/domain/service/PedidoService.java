@@ -24,19 +24,11 @@ public class PedidoService {
         return pedidoRepository.findAll();
     }
 
+    @Transactional("chainedKafkaTransactionManager")
     public void criarTransacao(final PedidoRequest pedidoRequest) {
         final var pedido = pedidoCreate.execute(pedidoRequest);
-        salvar(pedido);
+        pedidoRepository.save(pedido);
         publisherPedido.send(pedido);
 
-    }
-
-    public void send(final Pedido pedido) {
-        publisherPedido.send(pedido);
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public Pedido salvar(final Pedido pedido) {
-        return pedidoRepository.save(pedido);
     }
 }

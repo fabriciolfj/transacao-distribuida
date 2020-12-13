@@ -26,6 +26,6 @@ public class TransacaoListener {
     @KafkaListener(topics = "${app.topic.create}")
     public void listenCreate(final String msg) throws JsonProcessingException {
         log.info("msg receive: {}", msg);
-        transacaoService.criarTransacao(objectMapper.readValue(msg, TransacaoDistribuida.class));
+       // transacaoService.criarTransacao(objectMapper.readValue(msg, TransacaoDistribuida.class));
     }
 }

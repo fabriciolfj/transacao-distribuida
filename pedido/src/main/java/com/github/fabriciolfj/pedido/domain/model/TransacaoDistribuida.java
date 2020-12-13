@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TransacaoMessage {
+public class TransacaoDistribuida {
 
     private String transactionId;
-    private String serviceName;
     private String status;
 }
