@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class TransacaoMessage {
 
     private String transactionId;
-    private String customerId;
+    private String serviceName;
     private String status;
 }
