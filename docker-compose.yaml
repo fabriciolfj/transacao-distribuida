@@ -1,8 +1,8 @@
 
-version: "3.8"
+version: "3.3"
 services:
   mysql2:
-    image: mysql:5.7.21
+    image: mysql:latest
     command: --lower_case_table_names=1
     environment:
       MYSQL_DATABASE: "pedido"
@@ -12,7 +12,7 @@ services:
       - 3307:3306
 
   mysql:
-    image: mysql:5.7.21
+    image: mysql:latest
     command: --lower_case_table_names=1
     environment:
       MYSQL_DATABASE: "transacao"
@@ -66,5 +66,4 @@ services:
       - "6379:6379"
 networks:
   kafka-net:
-    name: kafka-net
     driver: bridge
