@@ -1,1 +1,1 @@
-# transacao-distribuida
+# transacao-distribuida.  
